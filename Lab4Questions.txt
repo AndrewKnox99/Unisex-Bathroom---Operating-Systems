@@ -1,0 +1,18 @@
+Question 1: Identify the critical section(s) of the problem.
+
+The critical sections in sleeping barbers are whenever the shared memories are getting accessed
+or updated. I had two shared memories, custsInShop and haircutNum. That means whenever a customer
+enters the shop, leaves to go to the barber's chair, or whenever a customer or 
+barber process checks the value of custsInShop, it is a critical section. Also, when the barber
+updates the amount of haircuts using haircutNum, it is a critical section. Even though the 
+signal handler at the end checks haircutNum, that is not a critical section because by that point
+haircutNum will have been updated to its final value, and no other process will be accessing it
+at the same time.
+
+Question 2: What code modifications are necessary if the owner hires another barber?
+
+If the owner hires another barber, I would have to introduce more semaphores to make sure
+both barbers don't update haircutNum at the same time. I would also have to change the structure of
+my barber loop to support 2 barbers, likely meaning I would make some of the binary semaphores 
+I use into counting semaphores, so one barber isn't restricted while the other one is giving 
+a haircut.
